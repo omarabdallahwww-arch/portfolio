@@ -13,12 +13,30 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  background: linear-gradient(135deg, #0A1929 0%, #132F4C 50%, #1A3A5C 100%);
-  background-attachment: fixed;
+  background: linear-gradient(135deg, #0A1929 0%, #1E4D8C 25%, #1A3A5C 50%, #1E4D8C 75%, #0A1929 100%);
+  background-size: 400% 400%;
+  animation: gradient-shift 2s ease infinite;
   color: #e0e6ed;
-  transition: background 0.4s ease, color 0.4s ease;
+  transition: color 0.4s ease;
 }
 
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    animation: none;
+  }
+}
 main {
   width: 100%;
 }
