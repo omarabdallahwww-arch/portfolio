@@ -13,7 +13,8 @@ Visite le portfolio en ligne : https://omarabdallahwww-arch.github.io/portfolio/
 - JavaScript (menu mobile, thème clair/sombre)
 
 ## 📁 Structure du projet
-'''
+
+```
 portfolio/
 ├── index.html            # Page d'accueil
 ├── about.html            # À propos de moi
@@ -26,3 +27,4 @@ portfolio/
 ├── sitemap.xml           # Plan du site pour le référencement
 ├── images/               # Photos et logos
 └── certificates/         # Certificats obtenus
+```
