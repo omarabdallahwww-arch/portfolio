@@ -1116,7 +1116,8 @@ body.light-mode .icon-sun {
 }
 /* ==== Thème clair (dégradés gris clair / beige, accent noir) ==== */
 body.light-mode {
-  background: linear-gradient(180deg, #f7f7f5 0%, #eeeeec 50%, #e2e2de 100%);
+  background: linear-gradient(180deg, #f7f7f5 0%, #e8dcc4 25%, #f0e6d2 50%, #e8dcc4 75%, #f7f7f5 100%);
+  background-size: 400% 400%;
   color: #111111;
 }
 
