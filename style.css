@@ -1459,11 +1459,11 @@ nav a.active::after {
 
 /* Mode clair : le lien actif suit l'accent noir du reste du site */
 body.light-mode nav a.active {
-  color: #000000;
+  color: #e8dcc4;
 }
 
 body.light-mode nav a.active::after {
-  background-color: #000000;
+  background-color: #e8dcc4;
 }
 
 /* Menu mobile : soulignement centré sous le texte */
