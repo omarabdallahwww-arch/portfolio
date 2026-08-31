@@ -1123,8 +1123,13 @@ body.light-mode {
 
 body.light-mode .site-header,
 body.light-mode .site-footer {
-  background: linear-gradient(135deg, #f8f1e0 0%, #efe2c8 100%);
-  border-color: #ddcda6;
+  background: #000000;
+  border-color: #000000;
+}
+
+body.light-mode .site-header nav a,
+body.light-mode .site-footer .footer-content p {
+  color: #e8dcc4;
 }
 
 body.light-mode .site-name {
