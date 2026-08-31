@@ -1132,11 +1132,11 @@ body.light-mode .site-footer .footer-content p {
   color: #e8dcc4;
 }
 
-body.light-mode .site-name {
-  background: linear-gradient(135deg, #000000, #3a3a3a);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+body.light-mode .site-header .site-name {
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  color: #e8dcc4;
 }
 
 body.light-mode nav a {
