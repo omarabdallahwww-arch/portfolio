@@ -1702,3 +1702,28 @@ body.light-mode .project-tech span {
 body.light-mode .project-tech span {
   background-color: #e3d5b0;
   }
+/* Mode clair : badge date et bouton "Voir les détails" en noir/beige (au lieu du bleu) */
+body.light-mode .project-date {
+  background: #000000;
+  color: #e8dcc4;
+}
+
+body.light-mode .project-toggle {
+  background: #000000;
+  color: #e8dcc4;
+}
+
+/* Correction mode clair : menu mobile (fond beige clair) doit avoir un texte noir */
+@media (max-width: 768px) {
+  body.light-mode .site-header nav a {
+    color: #000000;
+  }
+
+  body.light-mode .site-header nav a.active {
+    color: #000000;
+  }
+
+  body.light-mode .site-header nav a.active::after {
+    background-color: #000000;
+  }
+}
