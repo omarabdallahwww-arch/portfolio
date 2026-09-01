@@ -174,6 +174,17 @@
       }
     })();
   </script>
+  <script>
+  document.querySelectorAll('.project-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const details = btn.nextElementSibling;
+      const isOpen = details.style.display === 'block';
+      details.style.display = isOpen ? 'none' : 'block';
+      btn.classList.toggle('open', !isOpen);
+      btn.firstChild.textContent = isOpen ? 'Voir les détails ' : 'Masquer les détails ';
+    });
+  });
+  </script>
 </body>
 </body>
 
