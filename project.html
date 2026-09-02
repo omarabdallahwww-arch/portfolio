@@ -175,12 +175,19 @@
     })();
   </script>
   <script>
-  document.querySelectorAll('.project-toggle').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const details = btn.nextElementSibling;
-    const isOpen = details.classList.contains('open');
-    details.classList.toggle('open', !isOpen);
-    btn.classList.toggle('open', !isOpen);
+  body.light-mode .overview-card a {
+  color: #000000;
+  background: linear-gradient(135deg, #e3d5b0, #d6c294);
+  border-color: #000000;
+}
+
+body.light-mode .overview-card a:hover {
+  background: linear-gradient(135deg, #d6c294, #c9b57e);
+}
+
+body.light-mode .overview-card a:focus {
+  outline: none;
+}
     });
   });
   </script>
