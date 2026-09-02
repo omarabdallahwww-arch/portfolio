@@ -1303,10 +1303,15 @@ body.light-mode .education-placeholder {
 body.light-mode .overview-card a {
   color: #000000;
   background: linear-gradient(135deg, #e3d5b0, #d6c294);
+  border-color: #000000;
 }
 
 body.light-mode .overview-card a:hover {
   background: linear-gradient(135deg, #d6c294, #c9b57e);
+}
+
+body.light-mode .overview-card a:focus {
+  outline: none;
 }
 
 body.light-mode .footer-content p {
