@@ -718,6 +718,10 @@ body.light-mode .overview-card::before {
 .overview-card a:hover {
   background-color: rgba(110, 168, 254, 0.15);
 }
+
+.overview-card a:focus {
+  outline: none;
+}
 /* ---- Anneau pulsant autour de la photo ---- */
 /* ---- Anneau pulsant + halo lumineux tournant autour de la photo ---- */
 .hero-image::before {
