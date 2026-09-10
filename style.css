@@ -4,6 +4,8 @@
   --color-black: #000000;
   --color-white: #ffffff;
   --color-text-secondary: #c5d1de;
+  --color-beige-light: #e8dcc4;
+  --color-beige-dark: #b9976a;
   --color-beige: #e8dcc4;
   --color-navy: #1e3358;
   --color-navy-alt: #1c2e42;
@@ -21,7 +23,7 @@ html {
 
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Inter', Arial, sans-serif;
   margin: 0;
   padding: 0;
   min-height: 100vh;
@@ -60,9 +62,13 @@ main {
   align-items: center;
   justify-content: flex-start;
   padding: 15px 25px;
-  background-color: #0d1a33;
+  background-color: rgba(13, 26, 51, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 2px solid #060d16;
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .profile {
@@ -82,7 +88,7 @@ main {
 
 .site-name {
   color: var(--color-accent);
-  font-size: 22px;
+  font-size: clamp(18px, 4vw, 22px);
   font-weight: bold;
 }
 
@@ -254,7 +260,7 @@ nav a:hover {
 }
 
 #contact h1 {
-  font-size: 48px;
+  font-size: clamp(34px, 6.5vw, 48px);
   color: var(--color-white);
   margin-bottom: 20px;
 }
@@ -338,12 +344,6 @@ nav a:hover {
 
 /* ---- Responsive mobile ---- */
 @media (max-width: 480px) {
-  .site-name {
-    font-size: 18px;
-  }
-  #contact h1 {
-    font-size: 34px;
-  }
   #contact h2 {
     font-size: 22px;
   }
@@ -424,6 +424,38 @@ nav a:hover {
   overflow: hidden;
 }
 
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-size: cover;
+  background-position: center top;
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+@media (max-width: 768px) {
+  body::before {
+    background-image: url('images/Accueil.mobile.bleu.jpg');
+  }
+
+  body.light-mode::before {
+    background-image: url('images/Accueil.mobile.beige.jpg');
+  }
+}
+
+@media (min-width: 769px) {
+  body::before {
+    background-image: url('images/Accueil.pc.bleu.jpg');
+  }
+
+  body.light-mode::before {
+    background-image: url('images/Accueil.pc.beige.jpg');
+  }
+}
+
 #hero::before {
   content: '';
   position: absolute;
@@ -450,20 +482,15 @@ nav a:hover {
 
 .hero-text {
   flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
 }
 
 .hero-text h1 {
-  font-size: 42px;
+  font-size: clamp(30px, 6vw, 42px);
   color: var(--color-white);
   margin-bottom: 10px;
-}
-
-@media (max-width: 480px) {
-  .hero-text h1 {
-    font-size: 30px;
-  }
 }
 
 .hero-text h2 {
@@ -674,7 +701,7 @@ main hr {
 }
 
 body.light-mode .overview-card::before {
-  background: linear-gradient(135deg, var(--color-black), var(--color-gray));
+  background: var(--color-white);
 }
 
 .overview-card:hover::before {
@@ -805,16 +832,10 @@ body.light-mode .overview-card::before {
 }
 
 #education h1 {
-  font-size: 48px;
+  font-size: clamp(32px, 6vw, 48px);
   color: var(--color-white);
   text-align: center;
   margin-bottom: 20px;
-}
-
-@media (max-width: 480px) {
-  #education h1 {
-    font-size: 32px;
-  }
 }
 
 .education-placeholder {
@@ -832,12 +853,98 @@ body.light-mode .overview-card::before {
   margin: 0;
 }
 
+.education-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin-top: 20px;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.timeline-marker {
+  position: relative;
+  width: 22px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timeline-marker::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -14px;
+  bottom: -14px;
+  width: 3px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--color-accent), var(--color-accent-dark));
+}
+
+.timeline-item:first-child .timeline-marker::before {
+  top: 50%;
+}
+
+.timeline-item:last-child .timeline-marker::before {
+  bottom: 50%;
+}
+
+.timeline-dot {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-dark));
+  box-shadow: 0 0 0 4px var(--color-navy), 0 0 18px 3px rgba(110, 168, 254, 0.55);
+  z-index: 1;
+}
+
+.timeline-dot::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid var(--color-accent);
+  opacity: 0;
+  animation: timeline-pulse 2.5s ease-out infinite;
+}
+
+@keyframes timeline-pulse {
+  0% { transform: scale(0.6); opacity: 0.6; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
 .education-card {
+  position: relative;
+  flex: 1;
   background-color: var(--color-navy);
   border-radius: 15px;
   padding: 18px 22px;
-  margin-top: 16px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.education-card:hover {
+  transform: translateX(4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+}
+
+.education-card::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 22px;
+  width: 14px;
+  height: 14px;
+  background: var(--color-navy);
+  transform: rotate(45deg);
+  border-radius: 3px;
 }
 
 .education-card h3 {
@@ -896,7 +1003,7 @@ body.light-mode .overview-card::before {
   transition: transform 0.3s ease;
 }
 body.light-mode .certification-card::before {
-  background: linear-gradient(135deg, var(--color-black), var(--color-gray));
+  background: linear-gradient(135deg, var(--color-beige-dark), var(--color-gray));
 }
 
 .certification-card:hover::before {
@@ -985,16 +1092,10 @@ body.light-mode .certification-card::before {
 }
 
 #about h1 {
-  font-size: 48px;
+  font-size: clamp(32px, 6vw, 48px);
   color: var(--color-white);
   text-align: center;
   margin-bottom: 20px;
-}
-
-@media (max-width: 480px) {
-  #about h1 {
-    font-size: 32px;
-  }
 }
 
 .about-layout {
@@ -1087,16 +1188,10 @@ body.light-mode .certification-card::before {
 }
 
 #project h1 {
-  font-size: 48px;
+  font-size: clamp(32px, 6vw, 48px);
   color: var(--color-white);
   text-align: center;
   margin-bottom: 20px;
-}
-
-@media (max-width: 480px) {
-  #project h1 {
-    font-size: 32px;
-  }
 }
 /* ---- Expérience ---- */
 #experience {
@@ -1106,7 +1201,7 @@ body.light-mode .certification-card::before {
 }
 
 #experience h1 {
-  font-size: 48px;
+  font-size: clamp(32px, 6vw, 48px);
   color: var(--color-white);
   text-align: center;
   margin-bottom: 20px;
@@ -1162,7 +1257,13 @@ body.light-mode {
   color: #111111;
 }
 
-body.light-mode .site-header,
+body.light-mode .site-header {
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-color: var(--color-black);
+}
+
 body.light-mode .site-footer {
   background: var(--color-black);
   border-color: var(--color-black);
@@ -1203,26 +1304,26 @@ body.light-mode .theme-toggle {
 }
 
 body.light-mode .hero-text h1 {
-  color: var(--color-black);
+  color: var(--color-white);
 }
 
 body.light-mode .hero-text h2 {
-  background: linear-gradient(135deg, var(--color-black), var(--color-gray));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--color-beige);
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
 }
 
 body.light-mode .hero-text p {
-  color: var(--color-gray-dark);
+  color: var(--color-text-secondary);
 }
 
 body.light-mode .stat-number {
-  color: var(--color-black);
+  color: var(--color-beige);
 }
 
 body.light-mode .stat-label {
-  color: #3a3a3a;
+  color: var(--color-beige);
 }
 
 body.light-mode .hero-image {
@@ -1252,21 +1353,24 @@ body.light-mode #skills h3 {
 }
 
 body.light-mode .btn-primary {
-  background: linear-gradient(135deg, #1a1a1a, #3a3a3a);
-  color: var(--color-white);
+  background: transparent;
+  color: var(--color-beige);
+  border: 2px solid var(--color-beige);
 }
 
 body.light-mode .btn-primary:hover {
-  background: linear-gradient(135deg, var(--color-black), var(--color-gray-dark));
+  background: rgba(232, 220, 196, 0.15);
 }
 
 body.light-mode .btn-secondary {
+  background: var(--color-beige);
   color: var(--color-black);
-  border-color: var(--color-black);
+  border-color: var(--color-beige);
 }
 
 body.light-mode .btn-secondary:hover {
   background: linear-gradient(135deg, #efe2c8, #e3d3ab);
+  border-color: #efe2c8;
 }
 
 body.light-mode main hr {
@@ -1274,41 +1378,74 @@ body.light-mode main hr {
 }
 
 body.light-mode .section-title {
-  color: var(--color-black);
+  color: var(--color-white);
 }
 
 body.light-mode .section-title::after {
-  background: linear-gradient(90deg, var(--color-black), var(--color-gray));
+  background: var(--color-white);
 }
 
-body.light-mode .overview-card,
 body.light-mode .contact-card,
 body.light-mode .education-card,
 body.light-mode .about-sidebar-card {
   background: linear-gradient(135deg, #ece0c6 0%, #dfd0a8 100%);
 }
 
+body.light-mode .overview-card {
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5), 0 4px 10px rgba(0, 0, 0, 0.35);
+}
+
+body.light-mode .timeline-marker::before {
+  background: linear-gradient(180deg, var(--color-beige-light), var(--color-beige-dark));
+}
+
+body.light-mode .timeline-dot {
+  background: linear-gradient(135deg, var(--color-black), #4a4a4a);
+  box-shadow: 0 0 0 4px #ece0c6, 0 0 18px 3px rgba(0, 0, 0, 0.35);
+}
+
+body.light-mode .timeline-dot::after {
+  border-color: var(--color-black);
+}
+
+body.light-mode .education-card::before {
+  background: #ece0c6;
+}
+
 body.light-mode .overview-icon {
-  background: linear-gradient(135deg, #e3d5b0, #d6c294);
-  color: var(--color-black);
+  background: transparent;
+  color: var(--color-white);
 }
 body.light-mode .contact-card .icon {
   color: var(--color-black);
 }
 
-body.light-mode .overview-card h3,
 body.light-mode .education-card h3,
 body.light-mode .about-sidebar-icon {
   color: var(--color-black);
 }
 
-body.light-mode .overview-card p,
+body.light-mode .overview-card h3 {
+  color: var(--color-white);
+}
+
 body.light-mode .contact-card a,
-body.light-mode .about-content p,
 body.light-mode .about-sidebar-card p,
 body.light-mode .education-card .education-date,
 body.light-mode .education-placeholder p {
   color: var(--color-gray-dark);
+}
+
+body.light-mode .about-content p {
+  color: var(--color-beige-light);
+}
+
+body.light-mode .overview-card p {
+  color: var(--color-white);
 }
 
 body.light-mode .education-placeholder {
@@ -1316,20 +1453,20 @@ body.light-mode .education-placeholder {
 }
 
 body.light-mode .overview-card a {
-  color: var(--color-black);
-  background: linear-gradient(135deg, #e3d5b0, #d6c294);
-  border-color: var(--color-black);
+  color: var(--color-white);
+  background: transparent;
+  border-color: var(--color-white);
 }
 
 body.light-mode .overview-card a:hover {
-  background: linear-gradient(135deg, #d6c294, #c9b57e);
+  background: rgba(255, 255, 255, 0.15);
 }
 
 body.light-mode .overview-card a:focus {
   outline: none;
 }
 body.light-mode .overview-card:focus {
-  border-color: var(--color-black);
+  border-color: var(--color-white);
 }
 
 body.light-mode .footer-content p {
@@ -1344,24 +1481,33 @@ body.light-mode .footer-icons a:hover {
   color: var(--color-black);
 }
 
-body.light-mode #contact h1,
-body.light-mode #education h1,
-body.light-mode #about h1,
-body.light-mode #project h1,
-body.light-mode #experience h1,
-body.light-mode #contact h2,
-body.light-mode .about-content h2,
 body.light-mode .education-card .education-place,
 body.light-mode .about-sidebar-card h3 {
   color: var(--color-black);
 }
 
+body.light-mode #contact h2 {
+  color: var(--color-white);
+}
+
+body.light-mode #about h1,
+body.light-mode #contact h1,
+body.light-mode #education h1,
+body.light-mode #project h1,
+body.light-mode #experience h1 {
+  color: var(--color-white);
+}
+
+body.light-mode .about-content h2 {
+  color: var(--color-beige-dark);
+}
+
 body.light-mode #contact p {
-  color: var(--color-gray-dark);
+  color: var(--color-beige-light);
 }
 
 body.light-mode .divider {
-  background: linear-gradient(90deg, var(--color-black), var(--color-gray));
+  background: var(--color-beige-light);
 }
 
 body.light-mode .certification-card {
@@ -1437,17 +1583,16 @@ body.light-mode .verify-link {
 /* ---- Effet machine à écrire pour le nom (Accueil) ---- */
 .typewriter {
   display: inline-block;
-  overflow: hidden;
   white-space: nowrap;
   border-right: 3px solid var(--color-accent);
-  width: 0;
+  clip-path: inset(0 100% 0 0);
   animation: typing 2s steps(20, end) forwards, blink-cursor 0.75s step-end 4, hide-cursor 0.1s forwards 5s;
   animation-delay: 0s, 2s, 0s;
 }
 
 @keyframes typing {
-  from { width: 0; }
-  to { width: 20ch; }
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0% 0 0); }
 }
 
 @keyframes blink-cursor {
@@ -1561,14 +1706,14 @@ body.light-mode nav a.active::after {
 
 body.light-mode .raindrop {
   background: radial-gradient(circle at 30% 25%,
-    rgba(0, 0, 0, 0.6),
-    rgba(0, 0, 0, 0.35) 35%,
-    rgba(0, 0, 0, 0.15) 65%,
+    rgba(232, 220, 196, 0.9),
+    rgba(232, 220, 196, 0.5) 35%,
+    rgba(232, 220, 196, 0.2) 65%,
     transparent 100%);
 }
 
 body.light-mode .raindrop::before {
-  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.3));
+  background: linear-gradient(to bottom, transparent, rgba(232, 220, 196, 0.35));
 }
 
 @keyframes raindrop-fall {
