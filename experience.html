@@ -13,6 +13,7 @@
 </head>
 
 <body>
+  <canvas id="particle-sphere"></canvas>
   <div class="rain"></div>
   <script>
     if (localStorage.getItem("portfolio-theme") === "light") {
@@ -63,10 +64,44 @@
     <!-- Section Expérience -->
     <section id="experience">
       <h1>Expérience</h1>
-      <hr class="divider">
 
-      <div class="education-placeholder">
-        <p>Mes expériences seront ajoutées au fur et à mesure de mon parcours.</p>
+      <div class="experience-hero-image">
+        <img src="images/experience.image.png" alt="Expérience">
+        <h2 class="experience-hero-title">Expérience</h2>
+      </div>
+
+      <div class="experience-layout">
+        <div class="experience-list-container">
+          <button class="nav-arrow nav-arrow-up" id="expUp" aria-label="Élément précédent" disabled>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 15l-6-6-6 6"/></svg>
+          </button>
+
+          <div class="experience-list" id="expList">
+            <div class="experience-item active">
+              <h3>À venir</h3>
+              <p class="experience-date">—</p>
+              <div class="experience-detail" hidden>
+                <h2>Bientôt disponible</h2>
+                <ul class="desc-content">
+                  <li>Mes expériences professionnelles seront ajoutées ici au fur et à mesure de mon parcours.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <button class="nav-arrow nav-arrow-down" id="expDown" aria-label="Élément suivant" disabled>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+        </div>
+
+        <div class="experience-divider"></div>
+
+        <div class="experience-description" id="expDescription">
+          <h2>Bientôt disponible</h2>
+          <ul class="desc-content">
+            <li>Mes expériences professionnelles seront ajoutées ici au fur et à mesure de mon parcours.</li>
+          </ul>
+        </div>
       </div>
     </section>
   </main>
@@ -96,6 +131,42 @@
   </footer>
 
   <script>
+    const expItems = Array.from(document.querySelectorAll('#expList .experience-item'));
+    const expUp = document.getElementById('expUp');
+    const expDown = document.getElementById('expDown');
+    const expDescription = document.getElementById('expDescription');
+    let expActiveIndex = 0;
+
+    function renderExperience() {
+      expItems.forEach((item, i) => {
+        item.classList.toggle('active', i === expActiveIndex);
+        item.classList.toggle('blurred', i !== expActiveIndex);
+      });
+      expUp.disabled = expActiveIndex === 0;
+      expDown.disabled = expActiveIndex === expItems.length - 1;
+
+      const detail = expItems[expActiveIndex].querySelector('.experience-detail');
+      expDescription.classList.add('fade-out');
+      setTimeout(() => {
+        expDescription.innerHTML = detail.innerHTML;
+        expDescription.classList.remove('fade-out');
+      }, 300);
+    }
+
+    expItems.forEach((item, i) => {
+      item.addEventListener('click', () => {
+        expActiveIndex = i;
+        renderExperience();
+      });
+    });
+
+    expUp.addEventListener('click', () => {
+      if (expActiveIndex > 0) { expActiveIndex--; renderExperience(); }
+    });
+    expDown.addEventListener('click', () => {
+      if (expActiveIndex < expItems.length - 1) { expActiveIndex++; renderExperience(); }
+    });
+
     const menuToggle = document.querySelector('.menu-toggle');
     const nav = document.querySelector('nav');
 
@@ -134,6 +205,8 @@
       }
     })();
   </script>
-</body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/128/three.min.js"></script>
+<script src="js/particle-sphere.js"></script>
+  </body>
 
 </html>

@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
@@ -60,56 +60,62 @@
 </header>
 
   <main>
+    <div class="intro-screen">
     <!-- Section Hero -->
-    <!-- Section Hero -->
-    <section id="hero">
+    <section id="hero" class="reveal-up">
       <div class="hero-inner">
-      <div class="hero-text">
-        <h1><span class="typewriter">Omar Abdallah Obakar</span></h1>
-        <h2>Étudiant en Intelligence Artificielle / Machine Learning spécialisé en Computer Vision</h2>
-        <p>Je suis étudiant en Master orienté vers l'intelligence artificielle, le Machine Learning et la Computer Vision. Je développe progressivement mes compétences en programmation, apprentissage automatique et vision par ordinateur à travers mes études et mes projets personnels.</p>
-
-        <div class="hero-stats">
-          <div class="stat">
-            <span class="stat-number">0</span>
-            <span class="stat-label">Publications</span>
-          </div>
-          <div class="stat">
-            <span class="stat-number">0</span>
-            <span class="stat-label">An d'expérience</span>
-          </div>
-          <div class="stat">
-            <span class="stat-number">0</span>
-            <span class="stat-label">Projet réalisé</span>
-          </div>
-        </div>
-
-        <div class="hero-buttons">
-          <a href="contact.html" class="btn btn-primary">Me contacter</a>
-          <a href="project.html" class="btn btn-secondary">Voir mes projets</a>
-        </div>
-      </div>
-
-      <div class="hero-image">
-        <img src="images/Photo_profil.JPG" alt="Photo de profil d'Omar Abdallah Obakar">
-
-        <div id="skills">
-          <h3>Domaines d'intérêt</h3>
-          <div class="skills-list">
-            <span class="skill-tag"><span class="dot"></span>Python</span>
-            <span class="skill-tag"><span class="dot"></span>Apprentissage automatique</span>
-            <span class="skill-tag"><span class="dot"></span>Vision par ordinateur</span>
-            <span class="skill-tag"><span class="dot"></span>Analyse de données</span>
+        <div class="hero-text">
+          <h1><span class="typewriter">Omar<br>Abdallah<br>Obakar</span></h1>
+          <h2>Étudiant en Intelligence Artificielle / Machine Learning spécialisé en Computer Vision</h2>
+          <div class="hero-buttons">
+            <a href="contact.html" class="btn btn-primary">Me contacter</a>
+            <a href="project.html" class="btn btn-secondary">Voir mes projets</a>
           </div>
         </div>
       </div>
-      </div>
-  </section>
+    </section>
 
-    <hr>
+    <!-- Aperçu / bio -->
+    <section id="about-preview">
+      <div class="about-preview-inner">
+        <div class="about-preview-photo">
+          <img src="images/Photo_profil.JPG" alt="Photo de profil d'Omar Abdallah Obakar">
+        </div>
+
+        <div class="about-preview-content reveal-up">
+          <p>Je suis étudiant en Master orienté vers l'intelligence artificielle, le Machine Learning et la Computer Vision. Je développe progressivement mes compétences en programmation, apprentissage automatique et vision par ordinateur à travers mes études et mes projets personnels.</p>
+
+          <div id="skills">
+            <h3>Domaines d'intérêt</h3>
+            <div class="skills-list">
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">Apprentissage automatique</span>
+              <span class="skill-tag">Vision par ordinateur</span>
+              <span class="skill-tag">Analyse de données</span>
+            </div>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat">
+              <span class="stat-number">0</span>
+              <span class="stat-label">Publications</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number">0</span>
+              <span class="stat-label">An d'expérience</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number">0</span>
+              <span class="stat-label">Projet réalisé</span>
+            </div>
+          </div>
+        </>
+      </div>
+    </section>
+    
 
     <!-- Aperçu rapide -->
-    <section id="overview">
+    <section id="overview" class="reveal-up">
       <h2 class="section-title">Aperçu rapide</h2>
 
       <div class="overview-cards">
@@ -164,6 +170,7 @@
         </div>
       </div>
     </section>
+    </div>
   </main>
 
   <footer class="site-footer">

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Omar Abdallah Obakar - Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="home-splash">
+  <section id="home-hero">
+    <div class="home-hero-overlay"></div>
+    <div class="home-hero-image"></div>
+
+    <div class="home-hero-content">
+      <h1><span class="typewriter">Omar Abdallah Obakar</span></h1>
+      <h2 id="heroSubtitle"></h2>
+    </div>
+
+    <button class="scroll-indicator" id="scrollIndicator" aria-label="Accéder au portfolio">
+      <span class="scroll-orbit">
+        <svg class="scroll-mouse" viewBox="0 0 24 40" fill="none">
+          <rect x="1" y="1" width="22" height="38" rx="11" stroke="currentColor" stroke-width="1.5"></rect>
+          <circle class="scroll-dot" cx="12" cy="10" r="2.5" fill="currentColor"></circle>
+        </svg>
+        <svg class="scroll-swipe" viewBox="0 0 24 40" fill="none">
+          <line x1="12" y1="34" x2="12" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.35"></line>
+          <circle class="swipe-dot" cx="12" cy="30" r="3.5" fill="currentColor"></circle>
+        </svg>
+      </span>
+      <span class="scroll-text">Faites défiler vers le haut</span>
+    </button>
+  </section>
+
+  <script>
+    // ---- Effet machine à écrire (JS) pour le sous-titre ----
+    const subtitleText = "Machine Learning Engineer / Computer Vision Engineer";
+    const subtitleEl = document.getElementById('heroSubtitle');
+    let charIndex = 0;
+
+    function typeSubtitle() {
+      if (charIndex <= subtitleText.length) {
+        subtitleEl.textContent = subtitleText.slice(0, charIndex);
+        charIndex++;
+        setTimeout(typeSubtitle, 45);
+      } else {
+        subtitleEl.classList.remove('typing-cursor');
+      }
+    }
+
+    // démarre juste après la fin de l'effet du nom (~5s)
+    setTimeout(() => {
+      subtitleEl.classList.add('typing-cursor');
+      typeSubtitle();
+    }, 5000);
+
+    // ---- Navigation vers le site ----
+    function goToSite() {
+      if (document.body.classList.contains('leaving')) return;
+      document.body.classList.add('leaving');
+      setTimeout(() => { window.location.href = 'index.html'; }, 500);
+    }
+
+    window.addEventListener('wheel', (e) => {
+      if (e.deltaY < 0) goToSite();
+    }, { passive: true });
+
+    let touchStartY = null;
+    window.addEventListener('touchstart', (e) => {
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    window.addEventListener('touchend', (e) => {
+      if (touchStartY === null) return;
+      const touchEndY = e.changedTouches[0].clientY;
+      if (touchStartY - touchEndY > 40) goToSite();
+      touchStartY = null;
+    }, { passive: true });
+
+    document.getElementById('scrollIndicator').addEventListener('click', goToSite);
+  </script>
+</body>
+
+</html>
