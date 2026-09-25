@@ -71,7 +71,7 @@
       <div class="education-timeline reveal-up">
         <div class="timeline-item">
           <div class="timeline-marker"><span class="timeline-dot"></span></div>
-          <div class="education-card">
+          <div class="education-card" tabindex="0">
             <h3>Master</h3>
             <p class="education-place">MIET — National Research University of Electronic Technology</p>
             <p class="education-date">Septembre 2027 — Juin 2029</p>
@@ -80,7 +80,7 @@
 
         <div class="timeline-item">
           <div class="timeline-marker"><span class="timeline-dot"></span></div>
-          <div class="education-card">
+          <div class="education-card" tabindex="0">
             <h3>Formation Linguistique</h3>
             <p class="education-place">Année préparatoire de langue russe</p>
             <p class="education-date">Octobre 2026 — Juin 2027</p>
@@ -89,7 +89,7 @@
 
         <div class="timeline-item">
           <div class="timeline-marker"><span class="timeline-dot"></span></div>
-          <div class="education-card">
+          <div class="education-card" tabindex="0">
             <h3>Licence en Mathématiques</h3>
             <p class="education-place">Université de Djibouti</p>
             <p class="education-date">Septembre 2023 — Mai 2026</p>
@@ -272,6 +272,46 @@
       card.addEventListener('touchend', () => card.classList.remove('is-touched'));
       card.addEventListener('touchcancel', () => card.classList.remove('is-touched'));
     });
+  </script>
+  <script>
+  const revealEls = document.querySelectorAll('.reveal-up, .reveal-down');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  revealEls.forEach(el => revealObserver.observe(el));
+  </script>
+  <script>
+  const allEducationCards = document.querySelectorAll('.education-card');
+
+  function toggleEducationCard(card) {
+    const wasOpen = card.classList.contains('open');
+    allEducationCards.forEach(c => c.classList.remove('open'));
+    if (!wasOpen) card.classList.add('open');
+  }
+
+  allEducationCards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleEducationCard(card);
+    });
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleEducationCard(card);
+      }
+    });
+  });
+
+  document.addEventListener('click', () => {
+    allEducationCards.forEach(c => c.classList.remove('open'));
+  });
   </script>
 </body>
 

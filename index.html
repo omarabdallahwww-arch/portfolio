@@ -2,6 +2,7 @@
 <html lang="fr">
 
 <head>
+  <link rel="preload" as="image" href="images/hero-bg.png" fetchpriority="high">
   <script>
   if (!sessionStorage.getItem('introVue')) {
     sessionStorage.setItem('introVue', '1');
@@ -14,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=3">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 
@@ -84,11 +85,11 @@
     <!-- Aperçu / bio -->
     <section id="about-preview">
       <div class="about-preview-inner">
-        <div class="about-preview-photo">
+        <div class="about-preview-photo reveal-up">
           <img src="images/Photo_profil.JPG" alt="Photo de profil d'Omar Abdallah Obakar">
         </div>
 
-        <div class="about-preview-content reveal-up">
+        <div class="about-preview-content reveal-down">
           <p>Je suis étudiant en Master orienté vers l'intelligence artificielle, le Machine Learning et la Computer Vision. Je développe progressivement mes compétences en programmation, apprentissage automatique et vision par ordinateur à travers mes études et mes projets personnels.</p>
 
           <div id="skills">
@@ -115,17 +116,17 @@
               <span class="stat-label">Projet réalisé</span>
             </div>
           </div>
-        </>
+        </div>
       </div>
     </section>
     
 
     <!-- Aperçu rapide -->
-    <section id="overview" class="reveal-up">
+    <section id="overview" class="reveal-down">
       <h2 class="section-title">Aperçu rapide</h2>
 
       <div class="overview-cards">
-        <div class="overview-card" tabindex="0">
+        <div class="overview-card fade-in-scroll" tabindex="0">
           <div class="overview-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M22 10l-10-5-10 5 10 5 10-5z"></path>
@@ -137,7 +138,7 @@
           <a href="about.html">En savoir plus</a>
         </div>
 
-        <div class="overview-card" tabindex="0">
+        <div class="overview-card fade-in-scroll" tabindex="0">
           <div class="overview-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <rect x="2" y="7" width="20" height="14" rx="2"></rect>
@@ -149,7 +150,7 @@
           <a href="experience.html">Voir l'expérience</a>
         </div>
 
-        <div class="overview-card" tabindex="0">
+        <div class="overview-card fade-in-scroll" tabindex="0">
           <div class="overview-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <rect x="3" y="3" width="7" height="7"></rect>
@@ -163,7 +164,7 @@
           <a href="project.html">Voir les projets</a>
         </div>
 
-        <div class="overview-card" tabindex="0">
+        <div class="overview-card fade-in-scroll" tabindex="0">
           <div class="overview-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M22 10l-10-5-10 5 10 5 10-5z"></path>
@@ -177,7 +178,7 @@
       </div>
     </section>
     </div>
-  </main>
+ </main>
 
   <footer class="site-footer">
     <div class="footer-content">
@@ -241,6 +242,48 @@
         rainContainer.appendChild(drop);
       }
     })();
+  </script>
+  <script>
+  const revealEls = document.querySelectorAll(
+    '.reveal-up:not(.about-preview-photo):not(.about-preview-content), .reveal-down:not(.about-preview-photo):not(.about-preview-content)'
+  );
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  revealEls.forEach(el => revealObserver.observe(el));
+
+  const aboutInner = document.querySelector('.about-preview-inner');
+  if (aboutInner) {
+    const aboutObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          document.querySelector('.about-preview-photo')?.classList.add('in-view');
+          document.querySelector('.about-preview-content')?.classList.add('in-view');
+          aboutObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    aboutObserver.observe(aboutInner);
+  }
+  </script>
+  <script>
+  const fadeEls = document.querySelectorAll('.fade-in-scroll');
+  const fadeObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        fadeObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  fadeEls.forEach(el => fadeObserver.observe(el));
   </script>
 </body>
 
